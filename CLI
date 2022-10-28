@@ -1,0 +1,31 @@
+vi Dockerfile
+###################
+FROM tomcat:latest
+ADD https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war /usr/local/tomcat/webapps
+CMD [ "catalina.sh","run" ]
+###################
+
+sudo docker build -t devops-app .
+
+/usr/local/tomcat/webapps/sample/index.html
+
+--> exit
+
+docker commit container-id  devops-app2
+
+sudo docker login
+username-->
+pass-->
+**************
+docker hub push-------       not a command
+********************** 
+sudo docker tag devops-app2:latest usrname/devops-app2:latest
+sudo docker push usrname/devops-app2:latest
+
+
+kubectl run devops-app2 --image=usrname/devops-app2:latest --port=8080
+kubectl expose pod devops-app2 --type=LoadBalancer --port=8080
+
+
+kubectl delete pod devops-app2
+kubectl delete svc devops-app2
