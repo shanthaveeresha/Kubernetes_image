@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: devops-app-pod
+  labels:
+    component: web
+spec:
+  containers:
+    - name: devops-app
+      image: 15689876/devops:kuberntes
+      ports:
+        - containerPort: 8080
