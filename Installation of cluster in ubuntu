@@ -2,6 +2,20 @@
 #Install Docker with Following link: https://docs.docker.com/engine/install/ubuntu/#set-up-the-repository
 sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
+cat <<EOF | sudo tee /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+sudo systemctl daemon-reload && sudo systemctl restart docker
+swapoff -a
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
 cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
 deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
@@ -13,10 +27,11 @@ sudo systemctl enable kubelet.service
 ##Once all the above steps are completed take the AMI of the above instance
 ********************************************************************************************************************
 ##These below commands has to run in master only##
+sudo kubeadm init
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-sudo kubeadm init
-
 ##Join another node with sudo join token##
+#creating network##
+kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
+
