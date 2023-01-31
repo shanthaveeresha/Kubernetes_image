@@ -16,7 +16,7 @@ docker push DOCKERHUBNAME/devops-app:jan30
 ######################################################################
 
 
-kubectl run devops-app --image=DOCKERHUBNAME/devops-app:JAN30 --port=8080
+kubectl run devops-app --image=DOCKERHUBNAME/devops-app:jan30 --port=8080
 kubectl expose pod devops-app --type=LoadBalancer --port=8080
 
 
