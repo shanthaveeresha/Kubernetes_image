@@ -9,9 +9,9 @@ sudo docker build -t devops-app .
 docker run -d -p 9090:8080 --name k8s-test devops-app
 docker cp k8s-test:/usr/local/tomcat/webapps/sample/index.html .
 docker cp index.html k8s-test:/usr/local/tomcat/webapps/sample/
-docker commit k8s-test shanth929/devops-app:jan30
+docker commit k8s-test DOCKERHUBNAME/devops-app:jan30
 docker login
-docker push shanth929/devops-app:jan30
+docker push DOCKERHUBNAME/devops-app:jan30
 ######################################################################
 
 
