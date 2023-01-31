@@ -8,6 +8,7 @@ CMD [ "catalina.sh","run" ]
 sudo docker build -t devops-app .
 docker run -d -p 9090:8080 --name k8s-test devops-app
 docker cp k8s-test:/usr/local/tomcat/webapps/sample/index.html .
+###########DO YOUR CHANGES IN INDEX.HTML AND COPY TO CONTAINER#############
 docker cp index.html k8s-test:/usr/local/tomcat/webapps/sample/
 docker commit k8s-test DOCKERHUBNAME/devops-app:jan30
 docker login
