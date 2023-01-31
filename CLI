@@ -16,8 +16,8 @@ docker push DOCKERHUBNAME/devops-app:jan30
 ######################################################################
 
 
-kubectl run devops-app2 --image=usrname/devops-app2:latest --port=8080
-kubectl expose pod devops-app2 --type=LoadBalancer --port=8080
+kubectl run devops-app --image=DOCKERHUBNAME/devops-app:JAN30 --port=8080
+kubectl expose pod devops-app --type=LoadBalancer --port=8080
 
 
 kubectl delete pod devops-app2
