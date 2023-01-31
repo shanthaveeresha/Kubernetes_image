@@ -1,0 +1,22 @@
+********************************************************************************************************************
+#Install Docker with Following link: https://docs.docker.com/engine/install/ubuntu/#set-up-the-repository
+sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+
+cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+sudo apt update -y
+sudo apt install -y kubeadm=1.18.13-00 kubelet=1.18.13-00 kubectl=1.18.13-00
+sudo systemctl start kubelet
+sudo systemctl enable kubelet.service
+*******************************************************************************************************************
+##Once all the above steps are completed take the AMI of the above instance
+********************************************************************************************************************
+##These below commands has to run in master only##
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+sudo kubeadm init
+
+##Join another node with sudo join token##
