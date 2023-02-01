@@ -1,0 +1,16 @@
+##Steps to install kubernetes cluster in ubuntu 20.04(t2.medium)
+git clone https://github.com/shanthaveeresha/Kubernetes_image.git
+##switch to working directory in the repo
+chmod 777 script.sh
+./script.sh
+##create a file and add worker nodes if any ##
+sudo vi /etc/hosts
+private-ip master
+private-ip worker
+##you can verify##
+ping worker
+ping master
+##Inititalize kubeadm##
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+##Run flannel plugin if status is not showing ready ##
+kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube-flannel.yml
